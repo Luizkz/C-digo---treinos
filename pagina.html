@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Treinos</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #content {
+            text-align: center;
+        }
+        #calendario, #listaExercicios, #submenuExercicios, #voltarParaMenu, #exerciciosPredefinidos {
+            display: none;
+        }
+        #voltarParaMenu {
+            display: none;
+            margin-right: auto;
+            margin-top: 50px;
+        }
+        #voltarParaMenu {
+            display: none;
+            margin-left: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content">
+        <h1>Treinos</h1>
+        
+        <button id="programarTreinos" onclick="mostrarCalendario()">Programar Treinos</button>
+        
+        <div id="calendario">
+            <h2>Calendário</h2>
+            <button id="segunda" onclick="mostrarExercicios('Segunda')">Segunda-feira</button>
+            <button id="terca" onclick="mostrarExercicios('Terça')">Terça-feira</button>
+            <button id="quarta" onclick="mostrarExercicios('Quarta')">Quarta-feira</button>
+            <button id="quinta" onclick="mostrarExercicios('Quinta')">Quinta-feira</button>
+            <button id="sexta" onclick="mostrarExercicios('Sexta')">Sexta-feira</button>
+        </div>
+        
+        <button id="voltarParaMenu" onclick="voltarParaMenu()">Voltar para o Menu Inicial</button>
+        
+        <div id="submenuExercicios">
+            <h2>Selecione o tipo de exercício</h2>
+            <select id="exercicios">
+                <option value="Peito">Peito</option>
+                <option value="Braço">Braço</option>
+                <option value="Perna">Perna</option>
+            </select>
+            <button onclick="mostrarExerciciosPredefinidos()">Exercicios Predefinidos</button>
+        </div>
+
+        <div id="exerciciosPredefinidos">
+            <h2>Exercícios Predefinidos</h2>
+            <p id="grupoSelecionado">Grupo Selecionado: Peito</p> 
+            <p id="diaSelecionado"></p>
+            <label for="horario">Horário:</label>
+            <input type="time" id="horario">
+            <ul id="exerciciosPredefinidosLista">
+                <li contenteditable="true">Supino Reto /serie: 3 / repeticoes: 12-12-falha</li>
+                <li contenteditable="true">Crucifixo Inclinado /serie: 3 / repeticoes: 12-12-falha</li>
+                <li contenteditable="true">Cross Over /serie: 3 / repeticoes: 12-12-falha</li>
+                <li contenteditable="true">Supino Fechado /serie: 4 / repeticoes: 12-12-10-falha</li>
+                <li contenteditable="true">Triceps pulley Unilateral /serie: 3 / repeticoes: 12-12-falha</li>
+                <li contenteditable="true">Bit-Set Cable Cruch + infra/ serie: 3 / repeticoes: 15-15-15</li>
+            </ul>
+        </div>
+
+        <div id="listaExercicios">
+            <h2>Lista de Exercicios</h2>
+            <ul id="exerciciosAdicionados">
+                
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function mostrarCalendario() {
+            document.getElementById("programarTreinos").style.display = "none";
+            document.getElementById("calendario").style.display = "block";
+            document.getElementById("voltarParaMenu").style.display = "block";
+        }
+
+        function mostrarExercicios(dia) {
+            document.getElementById("calendario").style.display = "none";
+            document.getElementById("submenuExercicios").style.display = "block";
+            document.getElementById("submenuExercicios").setAttribute("data-dia", dia);
+        }
+
+        function mostrarExerciciosPredefinidos() {
+            document.getElementById("submenuExercicios").style.display = "none";
+            document.getElementById("exerciciosPredefinidos").style.display = "block";
+            
+            const grupoExercicio = document.getElementById("exercicios").value;
+            document.getElementById("grupoSelecionado").textContent = "Grupo Selecionado: " + grupoExercicio;
+
+            
+            const diaSelecionado = document.getElementById("submenuExercicios").getAttribute("data-dia");
+            document.getElementById("diaSelecionado").textContent = "Dia Selecionado: " + diaSelecionado;
+        }
+
+        function adicionarExercicio(exercicio) {
+            const dia = document.getElementById("submenuExercicios").getAttribute("data-dia");
+            const horario = document.getElementById("horario").value;
+            const listaExercicios = document.getElementById("exerciciosAdicionados");
+            const novoItem = document.createElement("li");
+            novoItem.textContent = `${exercicio} para ${dia} às ${horario}`;
+            listaExercicios.appendChild(novoItem);
+        }
+
+        function voltarParaMenu() {
+            document.getElementById("programarTreinos").style.display = "block";
+            document.getElementById("calendario").style.display = "none";
+            document.getElementById("exerciciosPredefinidos").style.display = "none";
+            document.getElementById("submenuExercicios").style.display = "none";
+            document.getElementById("voltarParaMenu").style.display = "none";
+        }
+    </script>
+</body>
+
+<head>
+    <title>Treinos</title>
+    <style>
+        
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+
+#content {
+    text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    max-width: 90%;
+}
+
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+
+button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+
+select {
+    padding: 5px;
+    width: 100%;
+    margin: 5px 0;
+}
+
+
+input[type="time"] {
+    padding: 5px;
+    width: 20%;
+    margin: 5px 0;
+}
+
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    padding: 5px 0;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    margin-bottom: 5px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
+#calendario button {
+    margin: 5px;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+#calendario button:hover {
+    background-color: #f0f0f0;
+}
+
+
+#voltarParaMenu {
+    background-color: #555;
+    margin: 5px;
+}
+
+#voltarParaMenu:hover {
+    background-color: #333;
+}
+
+    </style>
+</head>
+
+
+</html>
